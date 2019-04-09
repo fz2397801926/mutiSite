@@ -1,0 +1,277 @@
+{% load staticfiles %}
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'blog/css/bootstrap.min.css' %}">
+    <style>
+        #qqMap{
+            width:300px;
+            height:400px;
+        }
+    </style>
+</head>
+<body>
+<div class="panel-group" id="accordion" >
+    {# 数据库操作#}
+    <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" >
+          数据库操作
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div>
+            <div>
+                <a href="../adduser/">添加用户</a>
+                <a href="../addarticle">添加文章</a>
+            </div>
+            <div>
+                <h3>用户列表</h3>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <td>id</td>
+                            <td>用户名</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users%}
+                            <tr>
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.username }}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    {# 文件上传#}
+    <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" >
+          文件上传
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" >
+      <div class="panel-body">
+        <div>
+            <h1>ajax请求</h1>
+            <div>
+                <h3>基于jquery</h3>
+                <button onclick="jpAjax()">get看这</button>
+                <button onclick="jpAjax()">post看这</button>
+            </div>
+            <div>
+                <h3>基于JavaScript</h3>
+            </div>
+            <div>
+                <h3>基于XMl</h3>
+                <button onclick="xmlAjax()">get看这</button>
+                <button onclick="xmlAjax()">post看这</button>
+            </div>
+</div>
+      </div>
+    </div>
+    </div>
+    {# ajax请求#}
+    <div class="panel panel-default">
+    <div class="panel-heading" >
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" >
+          ajax请求
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse" >
+      <div class="panel-body">
+            <div>
+                <h3>基于jquery</h3>
+                <button onclick="jpAjax()">get看这</button>
+                <button onclick="jpAjax()">post看这</button>
+            </div>
+            <div>
+                <h3>基于JavaScript</h3>
+            </div>
+            <div>
+                <h3>基于XMl</h3>
+                <button onclick="xmlAjax()">get看这</button>
+                <button onclick="xmlAjax()">post看这</button>
+            </div>
+      </div>
+    </div>
+    </div>
+    {#腾讯地图#}
+    <div class="panel panel-default">
+    <div class="panel-heading" >
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" >
+          腾讯地图
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFour" class="panel-collapse collapse" >
+      <div class="panel-body">
+          <div class="qqMap" id="qqMap" ></div>
+      </div>
+    </div>
+    </div>
+    {#查看本地文件#}
+    <div class="panel panel-default">
+    <div class="panel-heading" >
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" >
+          视频播放
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFive" class="panel-collapse collapse in" >
+      <div class="panel-body">
+          <div>
+            <button id="listBtn" onclick="listFIles()">ajax查询文件列表</button>
+            <button id="unzipBtn" onclick="unzipFile()">解压文件</button>
+              <a href="https://ziahamza.github.io/webui-aria2/" target="_blank">aria2</a>
+          </div>
+          <div>
+              <ol class="breadcrumb">
+                  <li><a href="#" onclick="listFIles1(this)" >Home</a></li>
+                  <li><a href="#" onclick="listFIles1(this)">Library</a></li>
+                  <li><a href="#" onclick="listFIles1(this)">Data</a></li>
+                  <li class="active">wwwroot</li>
+              </ol>
+          </div>
+          <div>
+            {% if currentPath != '' %}
+                <ul>{{ currentPath }}</ul>
+                <ul><input type="checkbox"><a href="javascript:;" onclick="backHistory(this)" >返回上一页</a></ul>
+            {% endif %}
+
+              {% for dir in dirList %}
+                  <ul><input type="checkbox"><a href="javascript:;" onclick="listFIles(this)" >{{ dir }}</a></ul>
+              {% endfor %}
+              {% for file in fileList %}
+                  <ul><input type="checkbox" class="fileCheck"><a href="javascript:;" onclick="operateFile(this)" >{{ file }}</a></ul>
+              {% endfor %}
+
+          </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+{#<script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=4WIBZ-U353D-IWR4T-P7HTM-YMHOT-BOB3R"></script>#}
+<script src="{% static 'blog/js/jquery-2.1.4.min.js' %}"></script>
+<script src="{% static 'blog/js/bootstrap.min.js' %}"></script>
+<script>
+    {#基于jquery的ajax，方便#}
+    function jpAjax() {
+        $.ajax({
+            url:'{% url 'blog:ajax' %}',
+            type:'GET',
+            data:{'p':'123'},
+            success:function (arg) {
+                alert('success')
+            }
+        })
+    }
+    {#基于xml的ajax请求，兼容性好#}
+    function xmlAjax() {
+        var xml = new XMLHttpRequest();
+        xml.open('GET','{% url 'blog:ajax' %}');
+        xml.onreadystatechange = function () {
+            if (xml.readyState == 4){
+                console.log(xml.responseText)
+            }
+        };
+        xml.send(null)
+    }
+    {#地图初始化#}
+    {#function mapInit() {#}
+    {#var map = new qq.maps.Map(document.getElementById("qqMap"), {#}
+    {#    // 地图的中心地理坐标。#}
+    {#    center: new qq.maps.LatLng(39.916527,116.397128),#}
+    {#    zoom:8,#}
+    {#{);#}
+    {##}
+    {#var polyline = new qq.maps.Polyline({#}
+    {#path: [#}
+    {#    new qq.maps.LatLng(39.910, 116.399),#}
+    {#    new qq.maps.LatLng(39.920, 116.399),#}
+    {#    new qq.maps.LatLng(39.930, 116.399)#}
+    {#],#}
+    {#strokeColor: '#000000',#}
+    {#strokeWeight: 10,#}
+    {#map#}
+    {#{);#}
+    {#}#}
+    {#文件列表#}
+    function listFIles(the) {
+        var path = '{{ currentPath }}'+ '/' + $(the).html();
+        path = encodeURIComponent(path);
+        var url = '{% url 'blog:test' %}' + '?' + 'path=' + path ;
+        window.location.href = url;
+    }
+    {#返回上级目录#}
+    function backHistory() {
+        window.history.back()
+    }
+
+    function listFIles1(the) {
+        $.ajax({
+            url:'{% url 'blog:listFile' %}',
+            type:'GET',
+            data:"z",
+            success:function (arg) {
+                console.log(json.parse(arg))
+            }
+        })
+    }
+    {#点击文件操作#}
+    function operateFile() {
+        console.log('operateFile')
+    }
+    {#解压文件#}
+    function unzipFile(the) {
+        var selectedFiles = $('.fileCheck:checked + a');
+        fileList = [];
+        selectedFiles.each(function () {
+            var filePath = '{{ currentPath }}' + '/' +  $(this).html();
+            fileList.push(filePath)
+        });
+
+        $.ajax({
+            url:'{% url 'blog:unzipFile' %}',
+            type:'POST',
+            data:{
+                csrfmiddlewaretoken:'{{ csrf_token }}',
+                fileList:JSON.stringify(fileList),
+            },
+            success:function (arg) {
+                console.log(arg)
+            },
+        })
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+{% load staticfiles %}
+{% for article in postPage.object_list %}
+  <article class="excerpt excerpt">
+    <a class="focus" href="{% url 'blog:article' article.id%}" title="{{ article.title }}" target="_blank" >
+        <img class="thumb" data-original="images/201610181739277776.jpg" src="{% static 'blog/images/201610181739277776.jpg' %}" alt="{{ article.title }}"  style="display: inline;">
+    </a>
+	<header><a class="cat" href="#" title="MZ-NetBlog主题" >MZ-NetBlog主题<i></i></a>
+	  <h2><a href="#" title="{{ article.title }}" target="_blank" >{{ article.title }}</a></h2>
+	</header>
+	<p class="meta">
+	  <time class="time">
+          <i class="glyphicon glyphicon-time"></i> {{ article.pub_date }}
+      </time>
+      <span class="views">
+          <i class="glyphicon glyphicon-eye-open"></i>
+          217
+      </span>
+        <a class="comment" href="#comment" title="评论" target="_blank" >
+            <i class="glyphicon glyphicon-comment"></i>
+            {{ article.comment.count }}
+        </a>
+    </p>
+	<p class="note">用DTcms做一个独立博客网站（响应式模板），采用DTcms V4.0正式版（MSSQL）。开发环境：SQL2008R2+VS2010。DTcms V4.0正式版功能修复和优化：1、favicon.ico图标后台上传。（解决要换图标时要连FTP或者开服务器的麻烦）</p>
+  </article>
+{% endfor %}
+<nav class="pagination" style="display: inline-block;">
+    <ul>
+    {#上一页#}
+    {% if postPage.has_previous %}
+        <li class="prev-page"><a href="{% url 'blog:list' postPage.previous_page_number%}">上一页</a></li>
+    {% endif %}
+    {% for num in postPage.paginator.showPageRange%}
+        {% if num == postPage.number %}
+            <li class="active"><span>{{ postPage.number }}</span></li>
+        {% else %}
+            <li><a href="{% url 'blog:list' num%}">{{ num }}</a></li>
+        {% endif %}
+    {% endfor %}
+
+    {#下一页#}
+    {% if postPage.has_next %}
+        <li class="next-page"><a href="{% url 'blog:list' postPage.next_page_number%}">下一页</a></li>
+    {% endif %}
+          <li><span>共 {{ postPage.paginator.num_pages }} 页</span></li>
+    </ul>
+</nav>

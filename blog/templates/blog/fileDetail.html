@@ -1,15 +1,17 @@
 {% extends 'blog/base.html' %}
 {% load staticfiles %}
 {% block container%}
-    {% if suffix == 'mp4'or 'avi' %}
+    {% if suffix == 'mp4' %}
         <link rel="stylesheet" href="{% static 'video-js/video-js.min.css' %}">
           <video id="example_video_1" class="video-js" controls preload="none" width="640" height="264" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">
-            <source src="{{ MEDIA_URL }}{{ relativePath }}" type="video/mp4">
-            <source src="{{ MEDIA_URL }}{{ relativePath }}" type="video/webm">
-            <source src="{{ MEDIA_URL }}{{ relativePath }}" type="video/ogg">
+              <source src="{{ MEDIA_URL }}{{ relativePath }}" type="video/mp4">
+              <source src="{{ MEDIA_URL }}{{ relativePath }}" type="video/avi">
+              <source src="{{ MEDIA_URL }}{{ relativePath }}" type="video/webm">
+              <source src="{{ MEDIA_URL }}{{ relativePath }}" type="video/ogg">
           </video>
         <script src="{% static 'video-js/video.min.js' %}"></script>
     {% endif %}
+
     <div>{{ path }}</div>
     <div>{{ suffix }}</div>
     <div>

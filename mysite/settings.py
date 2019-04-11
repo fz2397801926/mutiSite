@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import platform
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -49,7 +50,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'navigations',
-    'aria',
     'ckeditor',
 ]
 
@@ -75,6 +75,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.media',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -155,9 +156,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, "collectStatic")
 
 STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,"publicStatic"),
     os.path.join(BASE_DIR,"blog/static/"),
     os.path.join(BASE_DIR,"navigations/static/"),
 ]
@@ -168,6 +170,7 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
+systemType = platform.architecture()[1]
 
 # # 调试模式
 # if DEBUG:
@@ -179,7 +182,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 #     DEBUG_TOOLBAR_CONFIG = {
 #         'JQUERY_URL': '//cdn.bootcss.com/jquery/2.1.4/jquery.min.js',
 #         # 或把jquery下载到本地然后取消下面这句的注释, 并把上面那句删除或注释掉
-#         #'JQUERY_URL': '/static/jquery/2.1.4/jquery.min.js',
+#         #'JQUERY_URL': '/publicStatic/jquery/2.1.4/jquery.min.js',
 #         'SHOW_COLLAPSED': True,
 #         'SHOW_TOOLBAR_CALLBACK': lambda x: True,
 #     }

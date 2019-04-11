@@ -30,6 +30,7 @@ urlpatterns = [
     path('checkCode.html', views.checkCode, name='checkCode'),
     path('upload.html', views.upload, name='upload'),
     path('test.html', views.test, name='test'),
+    path('fileDetail.html', views.fileDetail, name='fileDetail'),
     path('ajax.html', views.ajax, name='ajax'),
     path('listFile.html', views.listFile, name='listFile'),
     path('unzipFile.html', views.unzipFile, name='unzipFile'),

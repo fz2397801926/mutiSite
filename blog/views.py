@@ -1,5 +1,6 @@
 from django.shortcuts import render,HttpResponse
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+from mysite.settings import BASE_DIR,systemType
 from io import BytesIO
 from blog.models import *
 from mysite.mypaginator import MyPaginator
@@ -98,8 +99,6 @@ def test(request):
 
     users = WebUser.objects.all()
 
-    # 根目录
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     MEDIA_DIR = os.path.join(BASE_DIR,'media')
     # 获取当前路径
     toPath = request.GET.get('path')
@@ -109,13 +108,12 @@ def test(request):
         currentPath = MEDIA_DIR
     # 有参数时
     else:
-        # 解码
-        toPath = unquote(toPath,'utf-8')
-
-        # windows需要转换分隔符
-        currentPath = MEDIA_DIR + toPath.replace('/','\\')
-        # linux
-        # currentPath = os.path.join(MEDIA_DIR,toPath)
+        if systemType == 'WindowsPE':
+            # windows需要转换分隔符
+            currentPath = MEDIA_DIR + toPath.replace('/','\\')
+        else:
+            # linux
+            currentPath = MEDIA_DIR + toPath
         print(currentPath)
     # 获取文件
     searchResult = os.listdir(currentPath)
@@ -133,15 +131,16 @@ def test(request):
 def unzipFile(request):
     import json
     from utils.operateFiles import unzipFile,decom7zFile
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
     MEDIA_DIR = os.path.join(BASE_DIR, 'media')
     print(request.GET)
     print(request.POST)
     fileList = json.loads(request.POST.get('fileList'))
     resultList = []
     for file in fileList:
-        # windows转换分隔符
-        file = file.replace('/','\\')
+        if systemType == 'WindowsPE':
+            # windows转换分隔符
+            file = file.replace('/','\\')
         # 去空格
         stripedFile = file.replace(' ','')
         os.rename(MEDIA_DIR + file,MEDIA_DIR + stripedFile)
@@ -157,6 +156,28 @@ def unzipFile(request):
         resultList.append(result)
     resultList = json.dumps(resultList)
     return HttpResponse(resultList)
+
+# 文件详情页
+def fileDetail(request):
+    print(request.GET)
+
+    if systemType == 'WindowsPE':
+        # windows替换分隔符
+        relativePath = request.GET.get('path').replace('/','\\')[1:]
+    else:
+        relativePath = request.GET.get('path')[1:]
+    absolutePath = os.path.join(BASE_DIR,'media/' + relativePath)
+    print(relativePath)
+    print(absolutePath)
+    suffix = absolutePath.split('.')[1]
+    fileDir = os.path.dirname(absolutePath)
+    fileList = []
+    for file in os.listdir(fileDir):
+        filePath = os.path.join(fileDir,file)
+        if os.path.isfile(filePath):
+            fileList.append(filePath)
+    return render(request,'blog/fileDetail.html',{'relativePath':relativePath,'suffix':suffix,'fileList':fileList})
+
 
 def ajax(request):
     print(request.GET)

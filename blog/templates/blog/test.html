@@ -182,7 +182,7 @@
 
 {#<script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=4WIBZ-U353D-IWR4T-P7HTM-YMHOT-BOB3R"></script>#}
 <script src="{% static 'blog/js/jquery-2.1.4.min.js' %}"></script>
-<script src="{% static 'blog/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 <script>
     {#基于jquery的ajax，方便#}
     function jpAjax() {
@@ -248,8 +248,12 @@
         })
     }
     {#点击文件操作#}
-    function operateFile() {
-        console.log('operateFile')
+    function operateFile(the) {
+        console.log('operateFile');
+        var path = '{{ currentPath }}'+ '/' + $(the).html();
+        path = encodeURIComponent(path);
+        var url = '{% url 'blog:fileDetail' %}' + '?' + 'path=' + path ;
+        window.open(url)
     }
     {#解压文件#}
     function unzipFile(the) {

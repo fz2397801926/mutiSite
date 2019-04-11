@@ -1,6 +1,6 @@
 import os
 import zipfile
-
+from mysite.settings import systemType
 # 解压zip
 def unzipFile(filePath):
     zipFile = zipfile.ZipFile(filePath)
@@ -15,7 +15,10 @@ def unzipFile(filePath):
 
 # 解压7z
 def decom7zFile(filePath):
-    command = '7za x ' + filePath
+    if systemType == 'WindowsPE':
+        command = '7z x ' + filePath
+    else:
+        command = '7za x ' + filePath
     print(command)
     try:
         status = os.system(command)

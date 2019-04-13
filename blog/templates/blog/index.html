@@ -1,5 +1,43 @@
 {% extends 'blog/base.html' %}
 {% load staticfiles %}
+{% block cssLink %}
+    <style type="text/css">
+        .carousel-indicators {
+            bottom:6px;
+        }
+        .carousel {
+            margin-bottom:15px;
+            z-index:1;
+        }
+        .carousel-inner {
+            width:100%;
+            max-height:200px;
+        }
+        .carousel-inner .item a {
+            display:block;
+            text-align:center;
+        }
+        .carousel-inner .item img {
+            margin:0 auto;
+            border-radius:4px;
+        }
+        .carousel-control.left,.carousel-control.right {
+            background:none;
+        }
+        .carousel-control {
+            width:40px;
+            height:80px;
+            top:50%;
+            margin-top:-40px;
+        }
+        .carousel-control:hover {
+            background-color:#000;
+            opacity:.5;
+            filter:alpha(opacity=50);
+            color:#fff;
+        }
+    </style>
+{% endblock %}
 {% block container%}
     <section class="container">
 <div class="content-wrap">

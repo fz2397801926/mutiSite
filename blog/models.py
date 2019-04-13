@@ -12,7 +12,7 @@ class WebUser(models.Model):
     }
 
     username = models.CharField(max_length=20, verbose_name='名称')
-    password = models.CharField(max_length=20, verbose_name='密码')
+    password = models.CharField(max_length=128, verbose_name='密码')
     email = models.EmailField(verbose_name='邮箱')
     sex = models.CharField(max_length=32,choices=gender)
     create_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)

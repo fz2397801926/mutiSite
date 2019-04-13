@@ -3,7 +3,7 @@ from blog import models
 # Register your models here.
 
 class WebUserAdmin(admin.ModelAdmin):
-    list_display = ('username','create_time')
+    list_display = ('username',)
 
 admin.site.register(models.WebUser, WebUserAdmin)
 admin.site.register(models.Category)

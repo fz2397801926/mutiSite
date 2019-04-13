@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% block container%}
     <div class="col-md-8 col-md-offset-2">
-        {% if status == 'success' %}
+        {% if status == 'ok' %}
             <h1>验证成功，3秒后回到主页</h1>
         {% else %}
             <form class="form-horizontal" action="{% url 'blog:login' %}" method="post" >

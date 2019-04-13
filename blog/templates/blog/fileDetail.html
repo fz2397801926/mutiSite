@@ -1,22 +1,76 @@
 {% extends 'blog/base.html' %}
 {% load staticfiles %}
+{% block cssLink %}
+    <style type="text/css">
+        .vjs-paused .vjs-big-play-button,
+        .vjs-paused.vjs-has-started .vjs-big-play-button {
+            display: block;
+        }
+        .video-js.vjs-playing .vjs-tech {
+            pointer-events: auto;
+        }
+        .video-js .vjs-time-control{
+            display:block;
+        }
+        .video-js .vjs-remaining-time{
+            display: none;
+        }
+    </style>
+{% endblock %}
 {% block container%}
-    {% if suffix == 'mp4' %}
-        <link rel="stylesheet" href="{% static 'video-js/video-js.min.css' %}">
-          <video id="example_video_1" class="video-js" controls preload="none" width="640" height="264" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">
-              <source src="{{ MEDIA_URL }}{{ relativePath }}" type="video/mp4">
-              <source src="{{ MEDIA_URL }}{{ relativePath }}" type="video/avi">
-              <source src="{{ MEDIA_URL }}{{ relativePath }}" type="video/webm">
-              <source src="{{ MEDIA_URL }}{{ relativePath }}" type="video/ogg">
-          </video>
-        <script src="{% static 'video-js/video.min.js' %}"></script>
-    {% endif %}
-
-    <div>{{ path }}</div>
-    <div>{{ suffix }}</div>
-    <div>
-        {% for file in fileList %}
-            {{ file }}
-        {% endfor %}
-    </div>
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-8 col-md-offset-2 ">
+            {#视频播放#}
+            {% if suffix == 'mp4' or suffix == 'webm' or suffix == 'ogg' %}
+                <link rel="stylesheet" href="{% static 'video-js/video-js.min.css' %}">
+                  <video id="example_video_1" class="video-js vjs-big-play-centered vjs-fluid" controls preload="none" width="640" height="264" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">
+                      <source src="{{ MEDIA_URL }}{{ relativePath }}" type="video/mp4">
+                      <source src="{{ MEDIA_URL }}{{ relativePath }}" type="video/webm">
+                      <source src="{{ MEDIA_URL }}{{ relativePath }}" type="video/ogg">
+                  </video>
+                <script src="{% static 'video-js/video.min.js' %}"></script>
+            {#查看图片#}
+            {% elif suffix == 'jpg' or suffix == 'jpeg' or suffix == 'png' %}
+                <div id="myCarousel" class="carousel slide">
+                    <!-- 轮播（Carousel）指标 -->
+{#                    <ol class="carousel-indicators">#}
+{#                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>#}
+{#                        <li data-target="#myCarousel" data-slide-to="1"></li>#}
+{#                        <li data-target="#myCarousel" data-slide-to="2"></li>#}
+{#                    </ol>#}
+                    <!-- 轮播（Carousel）项目 -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img src="{{ MEDIA_URL }}{{ relativePath }}" alt="First slide">
+                            <div class="carousel-caption">标题 1</div>
+                        </div>
+                        {% for fileDetail in fileList%}
+                            {% if fileDetail.suffix == 'jpg' or fileDetail.suffix == 'jpeg' or fileDetail.suffix == 'png' %}
+                                <div class="item">
+                                    <img src="{{ MEDIA_URL }}{{ fileDetail.relativePath }}" alt="Second slide">
+                                    <div class="carousel-caption">{{ fileDetail.fileName }}</div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+{#                        <div class="item">#}
+{#                            <img src="{{ MEDIA_URL }}{{ relativePath }}" alt="Second slide">#}
+{#                            <div class="carousel-caption">标题 2</div>#}
+{#                        </div>#}
+{#                        <div class="item">#}
+{#                            <img src="{{ MEDIA_URL }}{{ relativePath }}" alt="Third slide">#}
+{#                            <div class="carousel-caption">标题 3</div>#}
+{#                        </div>#}
+                    </div>
+                    <!-- 轮播（Carousel）导航 -->
+                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+{#                <img src="{{ MEDIA_URL }}{{ relativePath }}" class="img-responsive" alt="">#}
+            {% endif %}
+        </div>
 {% endblock %}

@@ -1,12 +1,14 @@
-from django.shortcuts import render,HttpResponse
+import os
+from django.shortcuts import render,HttpResponse,redirect
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+from django.contrib import auth
 from mysite.settings import BASE_DIR,systemType
 from io import BytesIO
 from blog.models import *
 from mysite.mypaginator import MyPaginator
 from blog.blogForms import *
 from utils.check_code import create_validate_code
-import os
+from utils.operateFiles import sortFile
 # Create your views here.
 
 
@@ -59,7 +61,14 @@ def login(request):
     elif request.method == 'POST':
         loginForm = LoginForm(request.POST)
         if loginForm.is_valid():
-            print('success')
+            username = loginForm.cleaned_data['username']
+            password = loginForm.cleaned_data['password']
+            print(username)
+            print(password)
+            user = auth.authenticate(username=username, password=password)
+            if user and user.is_active:
+                auth.login(request,user)
+                return redirect('')
             return render(request, 'blog/login.html', {'status': 'success'})
         else:
             return render(request, 'blog/login.html', {'loginForm': loginForm})
@@ -68,12 +77,14 @@ def login(request):
 def register(request):
     if request.method == 'GET':
         registerForm = RegisterForm()
-        return render(request, 'blog/register.html', {'registerForm': registerForm})
+        return render(request, 'blog/register.html', {'registerForm': registerForm,'checckError':'验证码输入错误'})
     else:
         registerForm = RegisterForm(request.POST)
         print(request.POST)
         print(request.POST.get('checkCode'))
         print(request.session['CheckCode'])
+        if request.POST.get('checkCode') != request.session['CheckCode']:
+            return render(request, 'blog/register.html', {'registerForm': registerForm})
         if registerForm.is_valid():
             print('success')
         return render(request, 'blog/register.html', {'registerForm': registerForm})
@@ -166,17 +177,27 @@ def fileDetail(request):
         relativePath = request.GET.get('path').replace('/','\\')[1:]
     else:
         relativePath = request.GET.get('path')[1:]
-    absolutePath = os.path.join(BASE_DIR,'media/' + relativePath)
+
+    currentPath = os.path.dirname(relativePath)
+    absolutePath = os.path.join(BASE_DIR, os.path.join('media', relativePath))
+    print(currentPath)
     print(relativePath)
     print(absolutePath)
     suffix = absolutePath.split('.')[1]
     fileDir = os.path.dirname(absolutePath)
     fileList = []
-    for file in os.listdir(fileDir):
+    for file in sortFile(os.listdir(fileDir)):
+        # 文件信息
+        fileDetail = {}
+        # 文件绝对路径
         filePath = os.path.join(fileDir,file)
         if os.path.isfile(filePath):
-            fileList.append(filePath)
-    return render(request,'blog/fileDetail.html',{'relativePath':relativePath,'suffix':suffix,'fileList':fileList})
+            fileDetail['relativePath'] = os.path.join(currentPath,file)
+            fileDetail['fileName'] = os.path.split(filePath)[1]
+            fileDetail['suffix'] = filePath.split('.')[1]
+            print(fileDetail)
+            fileList.append(fileDetail)
+    return render(request,'blog/fileDetail.html',{'relativePath':relativePath,'suffix':suffix,'fileList':fileList,})
 
 
 def ajax(request):

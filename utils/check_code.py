@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding:utf-8 -*-
-
 import random
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
@@ -17,7 +14,7 @@ def create_validate_code(size=(120, 30),
                          bg_color=(255, 255, 255),
                          fg_color=(0, 0, 255),
                          font_size=18,
-                         font_type="Monaco.ttf",
+                         font_type="utils/Monaco.ttf",
                          length=4,
                          draw_lines=True,
                          n_line=(1, 2),

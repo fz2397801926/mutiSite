@@ -1,14 +1,14 @@
-import os
+import datetime
 from django.shortcuts import render,HttpResponse,redirect
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
-from django.contrib import auth
-from mysite.settings import BASE_DIR,systemType
 from io import BytesIO
-from blog.models import *
 from mysite.mypaginator import MyPaginator
+from mysite import settings
+from blog.models import *
 from blog.blogForms import *
 from utils.check_code import create_validate_code
-from utils.operateFiles import sortFile
+from utils.encryption import hashEncrypt
+from utils.sendEmail import sendEmail,makeConfirmCode
 # Create your views here.
 
 
@@ -16,7 +16,7 @@ from utils.operateFiles import sortFile
 # 主页
 def index(request):
     userform = LoginForm()
-    user = request.user
+    categoryList = Category.objects.all()
     paginator = MyPaginator(1, 10, Article.objects.all(), 5)
     try:
         postPage = paginator.page(1)
@@ -24,11 +24,11 @@ def index(request):
         postPage = paginator.page(1)
     except EmptyPage:
         postPage = paginator.page(paginator.num_pages)
-    return render(request, 'blog/index.html',{'user':user,'postPage':postPage,'userform':userform})
+    return render(request, 'blog/index.html',{'postPage':postPage,'categoryList':categoryList,'userform':userform})
 
 # 列表页
 def list(request,currentPage):
-    category = Category.objects.all()
+    categoryList = Category.objects.all()
     tagList = Tag.objects.all()
     # 分页
     paginator = MyPaginator(currentPage,10,Article.objects.all(),5)
@@ -38,12 +38,27 @@ def list(request,currentPage):
         postPage = paginator.page(1)
     except EmptyPage:
         postPage = paginator.page(paginator.num_pages)
-    return render(request, 'blog/list.html', {'category':category,'tagList':tagList,'postPage':postPage})
+    return render(request, 'blog/list.html', {'categoryList':categoryList,'tagList':tagList,'postPage':postPage})
 
 # 详情页
 def context(request,id):
-    artile = Article.objects.get(id=id)
-    return render(request, 'blog/article.html',{'article':artile})
+    return_dic = {}
+    return_dic['categoryList'] = Category.objects.all()
+    return_dic['article'] = Article.objects.get(id=id)
+    return_dic['comment_list'] = Comment.objects.all().order_by('-id')
+    if request.method == 'POST':
+        content = request.POST.get('comment-textarea')
+        artile_id = request.POST.get('article_id')
+        user_id = request.session.get('user_id')
+        user = WebUser.objects.get(id=user_id)
+        sub_time = datetime.datetime.now()
+        try:
+            Comment.objects.create(article=return_dic['article'],observer=user,content=content,sub_time=sub_time)
+            return_dic['status'] = 'success'
+        except Exception:
+            return_dic['status'] = 'false'
+        return render(request, 'blog/article.html',return_dic)
+    return render(request, 'blog/article.html',return_dic)
 
 # 验证码
 def checkCode(request):
@@ -55,46 +70,123 @@ def checkCode(request):
 
 # 登录页
 def login(request):
-    if request.method == 'GET':
-        loginForm = LoginForm()
-        return render(request, 'blog/login.html', {'loginForm': loginForm})
-    elif request.method == 'POST':
+    if request.session.get('is_login', None):
+        return redirect("blog/index/")
+    if request.method == 'POST':
         loginForm = LoginForm(request.POST)
+        message = "请检查填写的内容！"
         if loginForm.is_valid():
             username = loginForm.cleaned_data['username']
             password = loginForm.cleaned_data['password']
-            print(username)
-            print(password)
-            user = auth.authenticate(username=username, password=password)
-            if user and user.is_active:
-                auth.login(request,user)
-                return redirect('')
-            return render(request, 'blog/login.html', {'status': 'success'})
+            try:
+                user = WebUser.objects.get(username=username)
+                if not user.has_confirmed:
+                    message = "该用户还未通过邮件确认！"
+                    return render(request, 'blog/login.html', locals())
+                if user.password == hashEncrypt(password):  # 哈希值和数据库内的值进行比对
+                    request.session['is_login'] = True
+                    request.session['user_id'] = user.id
+                    request.session['username'] = user.username
+                    return redirect('/blog/index/')
+                else:
+                    message = "密码不正确！"
+            except:
+                message = "用户不存在！"
+            return render(request, 'blog/login.html', locals())
         else:
-            return render(request, 'blog/login.html', {'loginForm': loginForm})
+            loginForm =LoginForm()
+            return render(request, 'blog/login.html', locals())
+    else:
+        loginForm = LoginForm()
+        return render(request, 'blog/login.html', locals())
 
 # 注册页
 def register(request):
-    if request.method == 'GET':
-        registerForm = RegisterForm()
-        return render(request, 'blog/register.html', {'registerForm': registerForm,'checckError':'验证码输入错误'})
-    else:
+    if request.session.get('is_login', None):
+        # 登录状态不允许注册。你可以修改这条原则！
+        return redirect("blog/index/")
+    if request.method == 'POST':
         registerForm = RegisterForm(request.POST)
-        print(request.POST)
-        print(request.POST.get('checkCode'))
-        print(request.session['CheckCode'])
-        if request.POST.get('checkCode') != request.session['CheckCode']:
-            return render(request, 'blog/register.html', {'registerForm': registerForm})
-        if registerForm.is_valid():
-            print('success')
-        return render(request, 'blog/register.html', {'registerForm': registerForm})
+        message = "请检查填写的内容！"
+        if registerForm.is_valid():  # 获取数据
+            username = registerForm.cleaned_data['username']
+            password = registerForm.cleaned_data['password']
+            passwordConfirmed = registerForm.cleaned_data['passwordConfirmed']
+            email = registerForm.cleaned_data['email']
+            sex = registerForm.cleaned_data['sex']
+            if password != passwordConfirmed:  # 判断两次密码是否相同
+                message = "两次输入的密码不同！"
+                return render(request, 'blog/register.html', locals())
+            else:
+                same_name_user = WebUser.objects.filter(username=username)
+                if same_name_user:  # 用户名唯一
+                    message = '用户已经存在，请重新选择用户名！'
+                    return render(request, 'blog/register.html', locals())
+                same_email_user = WebUser.objects.filter(email=email)
+                if same_email_user:  # 邮箱地址唯一
+                    message = '该邮箱地址已被注册，请使用别的邮箱！'
+                    return render(request, 'blog/register.html', locals())
 
+                # 当一切都OK的情况下，创建新用户
+
+                new_user = WebUser()
+                new_user.username = username
+                new_user.password = hashEncrypt(password)  # 使用加密密码
+                new_user.email = email
+                new_user.sex = sex
+                new_user.save()
+
+                code = makeConfirmCode(new_user)
+                sendEmail(email, code)
+
+                message = '请前往注册邮箱，进行邮件确认！如果没有收到邮件，请在垃圾箱中查看'
+                return render(request, 'blog/register.html', locals())  # 跳转到等待邮件确认页面。
+    else:
+        registerForm = RegisterForm()
+        return render(request, 'blog/register.html', locals())
+
+# 用户注册确认
+def userConfirm(request):
+    code = request.GET.get('code', None)
+    message = ''
+    try:
+        confirm = ConfirmString.objects.get(code=code)
+    except:
+        message = '无效的确认请求!'
+        return render(request, 'blog/confirm.html', locals())
+
+    c_time = confirm.c_time
+    now = datetime.datetime.now()
+
+    if now > c_time + datetime.timedelta(settings.CONFIRM_DAYS):
+        confirm.user.delete()
+        message = '您的邮件已经过期！请重新注册!'
+        return render(request, 'blog/confirm.html', locals())
+    else:
+        confirm.user.has_confirmed = True
+        confirm.user.save()
+        confirm.delete()
+        message = '感谢确认，请使用账户登录！'
+        return render(request, 'blog/confirm.html', locals())
+
+# 注销
+def logout(request):
+    if not request.session.get('is_login', None):
+        # 如果本来就未登录，也就没有登出一说
+        return redirect("/blog/index/")
+    request.session.flush()
+    return redirect("/blog/index/")
+
+def background(request):
+    editForm = EditForm()
+    loginForm = LoginForm()
+    return render(request,'blog/userBackgroud.html',locals())
 
 # 错误页
 def error(request):
     return render(request, 'blog/error.html')
 
-
+# 上传
 def upload(request):
     if request.method == 'POST':
         print(request.POST)
@@ -106,98 +198,10 @@ def upload(request):
         return render(request,'blog/test.html')
 
 def test(request):
-    from urllib.parse import quote,unquote
 
     users = WebUser.objects.all()
 
-    MEDIA_DIR = os.path.join(BASE_DIR,'media')
-    # 获取当前路径
-    toPath = request.GET.get('path')
-    # 无参数时
-    if toPath == None:
-        toPath = ''
-        currentPath = MEDIA_DIR
-    # 有参数时
-    else:
-        if systemType == 'WindowsPE':
-            # windows需要转换分隔符
-            currentPath = MEDIA_DIR + toPath.replace('/','\\')
-        else:
-            # linux
-            currentPath = MEDIA_DIR + toPath
-        print(currentPath)
-    # 获取文件
-    searchResult = os.listdir(currentPath)
-    # 文件和文件夹列表
-    fileList = []
-    dirList = []
-    for result in searchResult:
-        if os.path.isdir(os.path.join(currentPath,result)):
-            dirList.append(result)
-        elif os.path.isfile(os.path.join(currentPath,result)):
-            fileList.append(result)
-    return render(request, 'blog/test.html',{'users':users,'dirList':dirList,'fileList':fileList,'currentPath':toPath})
-
-# 解压文件
-def unzipFile(request):
-    import json
-    from utils.operateFiles import unzipFile,decom7zFile
-
-    MEDIA_DIR = os.path.join(BASE_DIR, 'media')
-    print(request.GET)
-    print(request.POST)
-    fileList = json.loads(request.POST.get('fileList'))
-    resultList = []
-    for file in fileList:
-        if systemType == 'WindowsPE':
-            # windows转换分隔符
-            file = file.replace('/','\\')
-        # 去空格
-        stripedFile = file.replace(' ','')
-        os.rename(MEDIA_DIR + file,MEDIA_DIR + stripedFile)
-        filePath = MEDIA_DIR + stripedFile
-        print(filePath)
-        print(filePath.split('.')[1])
-        status = 'success'
-        if filePath.split('.')[1] == 'zip':
-            status = unzipFile(filePath)
-        elif filePath.split('.')[1] == '7z':
-            status = decom7zFile(filePath)
-        result = file + str(status)
-        resultList.append(result)
-    resultList = json.dumps(resultList)
-    return HttpResponse(resultList)
-
-# 文件详情页
-def fileDetail(request):
-    print(request.GET)
-
-    if systemType == 'WindowsPE':
-        # windows替换分隔符
-        relativePath = request.GET.get('path').replace('/','\\')[1:]
-    else:
-        relativePath = request.GET.get('path')[1:]
-
-    currentPath = os.path.dirname(relativePath)
-    absolutePath = os.path.join(BASE_DIR, os.path.join('media', relativePath))
-    print(currentPath)
-    print(relativePath)
-    print(absolutePath)
-    suffix = absolutePath.split('.')[1]
-    fileDir = os.path.dirname(absolutePath)
-    fileList = []
-    for file in sortFile(os.listdir(fileDir)):
-        # 文件信息
-        fileDetail = {}
-        # 文件绝对路径
-        filePath = os.path.join(fileDir,file)
-        if os.path.isfile(filePath):
-            fileDetail['relativePath'] = os.path.join(currentPath,file)
-            fileDetail['fileName'] = os.path.split(filePath)[1]
-            fileDetail['suffix'] = filePath.split('.')[1]
-            print(fileDetail)
-            fileList.append(fileDetail)
-    return render(request,'blog/fileDetail.html',{'relativePath':relativePath,'suffix':suffix,'fileList':fileList,})
+    return render(request, 'blog/test.html',{'users':users,})
 
 
 def ajax(request):
@@ -205,23 +209,6 @@ def ajax(request):
     print(request.POST)
     return HttpResponse('status')
 
-def listFile(request):
-    import os
-    import json
-    print(request.GET)
-    # 当前目录
-    currentDir = request.GET.get('currentDir')
-    print(currentDir)
-    # 根目录
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    # 媒体目录
-    mediaDir = os.path.join(BASE_DIR, 'media')
-    if currentDir == None:
-        currentDir = mediaDir
-    elif currentDir == 'parentDir':
-        currentDir = os.path.dirname(currentDir)
-    fileList = json.dumps(os.listdir(currentDir))
-    return HttpResponse(fileList)
 
 def addUser(requset):
     WebUser.objects.create(username='ava', password='123456', email='123@qq.com',sex='女')
@@ -236,3 +223,4 @@ def addArticle(requset):
         Article.objects.create(title='ava', category=categoryObj,author=authorObj)
 
     return HttpResponse('add ok')
+

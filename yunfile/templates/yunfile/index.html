@@ -1,0 +1,99 @@
+<html>
+{% load staticfiles %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css'%}">
+</head>
+<body>
+    {#查看本地文件#}
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" >
+          视频播放
+        </a>
+      </h4>
+
+          <div>
+            <button id="listBtn" onclick="listFIles()">ajax查询文件列表</button>
+            <button id="unzipBtn" onclick="unzipFile()">解压文件</button>
+              <a href="https://ziahamza.github.io/webui-aria2/" target="_blank">aria2</a>
+          </div>
+          <div>
+              <ol class="breadcrumb">
+                  <li><a href="#" onclick="listFIles1(this)" >Home</a></li>
+                  <li><a href="#" onclick="listFIles1(this)">Library</a></li>
+                  <li><a href="#" onclick="listFIles1(this)">Data</a></li>
+                  <li class="active">wwwroot</li>
+              </ol>
+          </div>
+          <div>
+            {% if currentPath != '' %}
+                <ul>{{ currentPath }}</ul>
+                <ul><input type="checkbox"><a href="javascript:;" onclick="backHistory(this)" >返回上一页</a></ul>
+            {% endif %}
+
+              {% for dir in dirList %}
+                  <ul><input type="checkbox"><a href="javascript:;" onclick="listFIles(this)" >{{ dir }}</a></ul>
+              {% endfor %}
+              {% for file in fileList %}
+                  <ul><input type="checkbox" class="fileCheck"><a href="javascript:;" onclick="operateFile(this)" >{{ file }}</a></ul>
+              {% endfor %}
+
+          </div>
+</body>
+<script src="{% static 'jquery/jquery-2.1.4.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script>
+    {#文件列表#}
+    function listFIles(the) {
+        var path = '{{ currentPath }}'+ '/' + $(the).html();
+        path = encodeURIComponent(path);
+        var url = '{% url 'yunfile:index' %}' + '?' + 'path=' + path ;
+        window.location.href = url;
+    }
+    {#返回上级目录#}
+    function backHistory() {
+        window.history.back()
+    }
+
+    function listFIles1(the) {
+        $.ajax({
+            url:'{% url 'yunfile:listFile' %}',
+            type:'GET',
+            data:"z",
+            success:function (arg) {
+                console.log(json.parse(arg))
+            }
+        })
+    }
+    {#点击文件操作#}
+    function operateFile(the) {
+        console.log('operateFile');
+        var path = '{{ currentPath }}'+ '/' + $(the).html();
+        path = encodeURIComponent(path);
+        var url = '{% url 'yunfile:fileDetail' %}' + '?' + 'path=' + path ;
+        window.open(url)
+    }
+    {#解压文件#}
+    function unzipFile(the) {
+        var selectedFiles = $('.fileCheck:checked + a');
+        fileList = [];
+        selectedFiles.each(function () {
+            var filePath = '{{ currentPath }}' + '/' +  $(this).html();
+            fileList.push(filePath)
+        });
+
+        $.ajax({
+            url:'{% url 'yunfile:unzipFile' %}',
+            type:'POST',
+            data:{
+                csrfmiddlewaretoken:'{{ csrf_token }}',
+                fileList:JSON.stringify(fileList),
+            },
+            success:function (arg) {
+                console.log(arg)
+            },
+        })
+    }
+</script>
+</html>

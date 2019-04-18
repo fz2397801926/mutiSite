@@ -26,6 +26,8 @@ SECRET_KEY = '^ckwk_b6+zo@)86_z0c(oncgkg#qced6p1ei4jt09idh44jaiw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
+
 # 邮件通知
 ADMINS = (
 ('amagua','2397801926@qq.com'),
@@ -50,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'navigations',
+    'yunfile',
     'ckeditor',
 ]
 
@@ -148,7 +151,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -170,7 +173,26 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
+# 系统类型
 systemType = platform.architecture()[1]
+
+# 邮件发送相关
+# EMAIL_USE_TLS = True   #必须为True
+EMAIL_USE_SSL = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.qq.com'
+EMAIL_PORT = 465
+# EMAIL_PORT = 465
+# EMAIL_PORT = 587
+EMAIL_HOST_USER = '3284226464@qq.com'
+EMAIL_HOST_PASSWORD = 'gbxmvszochuzdbej' #IMAP/SMTP服务
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+CONFIRM_DAYS = 7
+
+if systemType == 'WindowsPE':
+    HOST_IP = '127.0.0.1:8000'
+else:
+    HOST_IP = '127.0.0.1'
 
 # # 调试模式
 # if DEBUG:

@@ -1,4 +1,5 @@
 /media/
 /venv/
-/blog/migrations/*
+/*/migrations/*
+
 

@@ -1,0 +1,13 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+{% block container %}
+    <form action="">
+
+        {{ editForm.content }}
+
+    </form>
+{% endblock %}
+{% block script %}
+    <script src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+    <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+{% endblock %}

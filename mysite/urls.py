@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
     path('blog/', include('blog.urls')),
     path('navigations/', include('navigations.urls')),
+    path('yunfile/', include('yunfile.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

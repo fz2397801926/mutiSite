@@ -213,7 +213,7 @@ CONFIRM_DAYS = 7
 if systemType == 'WindowsPE':
     HOST_IP = '127.0.0.1:8000'
 else:
-    HOST_IP = '127.0.0.1'
+    HOST_IP = '47.98.127.54'
 
 # # 调试模式
 # if DEBUG:

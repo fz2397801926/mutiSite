@@ -16,6 +16,8 @@ import platform
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# 系统类型
+systemType = platform.architecture()[1]
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -100,26 +102,46 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # }
 
 # mysql数据库
-DATABASES = {
+if systemType == 'WindowsPE':
+    DATABASES = {
 
-    'default': {
+        'default': {
 
-        'ENGINE': 'django.db.backends.mysql',
+            'ENGINE': 'django.db.backends.mysql',
 
-        'NAME': 'mysite',    #你的数据库名称
+            'NAME': 'mysite',    #你的数据库名称
 
-        'USER': 'root',   #你的数据库用户名
+            'USER': 'root',   #你的数据库用户名
 
-        'PASSWORD': '123456', #你的数据库密码
+            'PASSWORD': '123456', #你的数据库密码
 
-        'HOST': '', #你的数据库主机，留空默认为localhost
+            'HOST': '', #你的数据库主机，留空默认为localhost
 
-        'PORT': '3306', #你的数据库端口
+            'PORT': '3306', #你的数据库端口
+
+        }
 
     }
+else:
+    DATABASES = {
 
-}
+        'default': {
 
+            'ENGINE': 'django.db.backends.mysql',
+
+            'NAME': 'mysite',  # 你的数据库名称
+
+            'USER': 'root',  # 你的数据库用户名
+
+            'PASSWORD': 'CPT1bt2PTP3!',  # 你的数据库密码
+
+            'HOST': '',  # 你的数据库主机，留空默认为localhost
+
+            'PORT': '3306',  # 你的数据库端口
+
+        }
+
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -173,8 +195,7 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
-# 系统类型
-systemType = platform.architecture()[1]
+
 
 # 邮件发送相关
 # EMAIL_USE_TLS = True   #必须为True

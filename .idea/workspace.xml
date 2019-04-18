@@ -2,52 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7bc76eb6-50c6-42e7-bee9-2f8949eb505a" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/blog/static/blog/assets/autoload.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/blog/static/blog/assets/flat-ui-icons-regular.eot" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/blog/static/blog/assets/flat-ui-icons-regular.svg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/blog/static/blog/assets/flat-ui-icons-regular.ttf" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/blog/static/blog/assets/flat-ui-icons-regular.woff" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/blog/static/blog/assets/live2d.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/blog/static/blog/assets/waifu-tips.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/blog/static/blog/assets/waifu-tips.json" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/blog/static/blog/assets/waifu.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/blog/templates/blog/confirm.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/blog/templates/blog/include/lastArticle.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/blog/templates/blog/include/live2d.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/blog/templates/blog/include/sidebar.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/blog/templates/blog/userBackgroud.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/publicStatic/jquery/jquery-2.1.4.min.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/utils/encryption.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/utils/sendEmail.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/yunfile/templates/yunfile/index.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/yunfile/urls.py" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Monaco.ttf" afterPath="$PROJECT_DIR$/utils/Monaco.ttf" />
-      <change beforePath="$PROJECT_DIR$/blog/admin.py" afterPath="$PROJECT_DIR$/blog/admin.py" />
-      <change beforePath="$PROJECT_DIR$/blog/blogForms.py" afterPath="$PROJECT_DIR$/blog/blogForms.py" />
-      <change beforePath="$PROJECT_DIR$/blog/models.py" afterPath="$PROJECT_DIR$/blog/models.py" />
-      <change beforePath="$PROJECT_DIR$/blog/static/blog/images/Thumbs.db" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/blog/templates/blog/article.html" afterPath="$PROJECT_DIR$/blog/templates/blog/article.html" />
-      <change beforePath="$PROJECT_DIR$/blog/templates/blog/base.html" afterPath="$PROJECT_DIR$/blog/templates/blog/base.html" />
-      <change beforePath="$PROJECT_DIR$/blog/templates/blog/fileDetail.html" afterPath="$PROJECT_DIR$/yunfile/templates/yunfile/fileDetail.html" />
-      <change beforePath="$PROJECT_DIR$/blog/templates/blog/include/content.html" afterPath="$PROJECT_DIR$/blog/templates/blog/include/content.html" />
-      <change beforePath="$PROJECT_DIR$/blog/templates/blog/include/hotArticle.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/blog/templates/blog/include/tagCloud.html" afterPath="$PROJECT_DIR$/blog/templates/blog/include/tagCloud.html" />
-      <change beforePath="$PROJECT_DIR$/blog/templates/blog/index.html" afterPath="$PROJECT_DIR$/blog/templates/blog/index.html" />
-      <change beforePath="$PROJECT_DIR$/blog/templates/blog/list.html" afterPath="$PROJECT_DIR$/blog/templates/blog/list.html" />
-      <change beforePath="$PROJECT_DIR$/blog/templates/blog/login.html" afterPath="$PROJECT_DIR$/blog/templates/blog/login.html" />
-      <change beforePath="$PROJECT_DIR$/blog/templates/blog/register.html" afterPath="$PROJECT_DIR$/blog/templates/blog/register.html" />
-      <change beforePath="$PROJECT_DIR$/blog/templates/blog/test.html" afterPath="$PROJECT_DIR$/blog/templates/blog/test.html" />
-      <change beforePath="$PROJECT_DIR$/blog/urls.py" afterPath="$PROJECT_DIR$/blog/urls.py" />
-      <change beforePath="$PROJECT_DIR$/blog/views.py" afterPath="$PROJECT_DIR$/blog/views.py" />
       <change beforePath="$PROJECT_DIR$/mysite/settings.py" afterPath="$PROJECT_DIR$/mysite/settings.py" />
-      <change beforePath="$PROJECT_DIR$/mysite/urls.py" afterPath="$PROJECT_DIR$/mysite/urls.py" />
-      <change beforePath="$PROJECT_DIR$/navigations/admin.py" afterPath="$PROJECT_DIR$/navigations/admin.py" />
-      <change beforePath="$PROJECT_DIR$/navigations/models.py" afterPath="$PROJECT_DIR$/navigations/models.py" />
-      <change beforePath="$PROJECT_DIR$/navigations/templates/navigations/index.html" afterPath="$PROJECT_DIR$/navigations/templates/navigations/index.html" />
-      <change beforePath="$PROJECT_DIR$/navigations/views.py" afterPath="$PROJECT_DIR$/navigations/views.py" />
-      <change beforePath="$PROJECT_DIR$/utils/check_code.py" afterPath="$PROJECT_DIR$/utils/check_code.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -101,11 +56,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blog/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="30">
               <caret line="80" column="41" lean-forward="false" selection-start-line="80" selection-start-column="41" selection-end-line="80" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mysite/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-151">
+              <caret line="19" column="39" lean-forward="false" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -248,7 +213,6 @@
         <option value="$PROJECT_DIR$/yunfile/templates/yunfile/index.html" />
         <option value="$PROJECT_DIR$/utils/check_code.py" />
         <option value="$PROJECT_DIR$/utils/sendEmail.py" />
-        <option value="$PROJECT_DIR$/mysite/settings.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/blog/templates/blog/include/tagCloud.html" />
         <option value="$PROJECT_DIR$/blog/templates/blog/include/sidebar.html" />
@@ -270,6 +234,7 @@
         <option value="$PROJECT_DIR$/blog/templates/blog/base.html" />
         <option value="$PROJECT_DIR$/blog/templates/blog/article.html" />
         <option value="$PROJECT_DIR$/blog/models.py" />
+        <option value="$PROJECT_DIR$/mysite/settings.py" />
       </list>
     </option>
   </component>
@@ -304,7 +269,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -416,6 +380,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -618,17 +583,17 @@
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32569557" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32569557" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32569557" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32569557" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32569557" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3623298" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36762482" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22919819" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.39869282" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -888,16 +853,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="190" column="0" lean-forward="true" selection-start-line="190" selection-start-column="0" selection-end-line="190" selection-end-column="0" />
-          <folding>
-            <element signature="e#307#316#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/navigations/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -1009,6 +964,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="80" column="41" lean-forward="false" selection-start-line="80" selection-start-column="41" selection-end-line="80" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-151">
+          <caret line="19" column="39" lean-forward="false" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="39" />
           <folding />
         </state>
       </provider>

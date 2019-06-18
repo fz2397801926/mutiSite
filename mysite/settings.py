@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'backend',
     'repository',
     'ckeditor',
+    'gunicorn',
 ]
 
 MIDDLEWARE = [

@@ -1,5 +1,6 @@
 import datetime
 from django.shortcuts import render,HttpResponse,redirect
+from django.http import JsonResponse
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from io import BytesIO
 from mysite.mypaginator import MyPaginator
@@ -27,7 +28,7 @@ def index(request):
     return render(request, 'blog/index.html',{'postPage':postPage,'categoryList':categoryList,'userform':userform})
 
 # 列表页
-def list(request,currentPage):
+def list_pages(request,currentPage):
     categoryList = Category.objects.all()
     tagList = Tag.objects.all()
     # 分页
@@ -177,6 +178,10 @@ def logout(request):
     request.session.flush()
     return redirect("/blog/index/")
 
+def resource(request):
+    return render(request, 'blog/resource.html',)
+
+# 用户后台
 def background(request):
     editForm = EditForm()
     loginForm = LoginForm()
@@ -203,6 +208,25 @@ def test(request):
 
     return render(request, 'blog/test.html',{'users':users,})
 
+
+def img(request):
+    img_cols = 4
+    img_list = Picture.objects.all()
+
+    return render(request, 'blog/img.html',{'img_list':img_list,'img_cols':img_cols})
+
+def get_img(request):
+    img_list = list(Picture.objects.values('id','title','local_path','net_src'))
+
+    ret = {
+        'status':'success',
+        'data':img_list,
+    }
+
+    return JsonResponse(ret)
+
+def markdown(request):
+    return render(request,'blog/markdown.html')
 
 def ajax(request):
     print(request.GET)

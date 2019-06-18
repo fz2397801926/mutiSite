@@ -22,18 +22,27 @@ app_name = 'blog'
 
 urlpatterns = [
     path('index/', views.index, name='index'),
-    path('list/<int:currentPage>', views.list, name='list'),
+    path('list/<int:currentPage>', views.list_pages, name='list'),
     path('article/<int:id>', views.context, name='article'),
+    path('resource', views.resource, name='resouce'),
     path('error/', views.error, name='error'),
+    path('background/', views.background, name='background'),
 
     path('register/', views.register, name='register'),
     path('confirm/', views.userConfirm, name='confirm'),
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
     path('checkCode.html', views.checkCode, name='checkCode'),
-    path('background/', views.background, name='background'),
     path('upload.html', views.upload, name='upload'),
+
+
+
+
     path('test.html', views.test, name='test'),
+    path('img.html', views.img, name='img'),
+    path('get_img.html', views.get_img),
+    path('markdown.html', views.markdown),
+
     path('ajax.html', views.ajax, name='ajax'),
     path('adduser/', views.addUser),
     path('addarticle/', views.addArticle),

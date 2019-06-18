@@ -46,7 +46,7 @@ def upload(session,imgDic):
     imgSize = imgDic['imgSize']
     headers = {
         'Content-Length': str(imgSize),
-        'Content - Type': 'image/png',
+        'Content - Type': 'image3/png',
         'User-agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'
     }
     data = {

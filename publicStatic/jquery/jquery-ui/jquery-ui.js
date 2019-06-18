@@ -7258,8 +7258,8 @@ function Datepicker() {
 			// +/-number for offset from today, null for today
 		appendText: "", // Display text following the input box, e.g. showing the format
 		buttonText: "...", // Text for trigger button
-		buttonImage: "", // URL for trigger button image
-		buttonImageOnly: false, // True if the image appears alone, false if it appears on a button
+		buttonImage: "", // URL for trigger button image3
+		buttonImageOnly: false, // True if the image3 appears alone, false if it appears on a button
 		hideIfNoPrevNext: false, // True to hide next/previous month links
 			// if not applicable, false to just disable them
 		navigationAsDateFormat: false, // True if date formatting applied to prev/today/next links
@@ -7888,7 +7888,7 @@ $.extend( Datepicker.prototype, {
 	 */
 	_showDatepicker: function( input ) {
 		input = input.target || input;
-		if ( input.nodeName.toLowerCase() !== "input" ) { // find from button/image trigger
+		if ( input.nodeName.toLowerCase() !== "input" ) { // find from button/image3 trigger
 			input = $( "input", input.parentNode )[ 0 ];
 		}
 

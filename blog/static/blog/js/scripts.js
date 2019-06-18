@@ -80,10 +80,10 @@ $("#gotop").click(function() {
 		'scrollTop': 0
 	}, 500)
 });
-$("img.thumb").lazyload({
-	placeholder: "../images/occupying.png",
-	effect: "fadeIn"
-});
+// $("img.thumb").lazyload({
+// 	placeholder: "../images/occupying.png",
+// 	effect: "fadeIn"
+// });
 $(".single .content img").lazyload({
 	placeholder: "../images/occupying.png",
 	effect: "fadeIn"
@@ -107,30 +107,30 @@ $(window).scroll(function() {
 		$('.fixed').removeAttr("style")
 	}
 });
-(function() {
-	var oMenu = document.getElementById("rightClickMenu");
-	var aLi = oMenu.getElementsByTagName("li");
-	for (i = 0; i < aLi.length; i++) {
-		aLi[i].onmouseover = function() {
-			$(this).addClass('rightClickMenuActive');
-		};
-		aLi[i].onmouseout = function() {
-			$(this).removeClass('rightClickMenuActive');
-		}
-	}
-	document.oncontextmenu = function(event) {
-		$(oMenu).fadeOut(0);
-		var event = event || window.event;
-		var style = oMenu.style;
-		$(oMenu).fadeIn(300);
-		style.top = event.clientY + "px";
-		style.left = event.clientX + "px";
-		return false
-	};
-	document.onclick = function() {
-		$(oMenu).fadeOut(100);
-	}
-})();
+// (function() {
+// 	var oMenu = document.getElementById("rightClickMenu");
+// 	var aLi = oMenu.getElementsByTagName("li");
+// 	for (i = 0; i < aLi.length; i++) {
+// 		aLi[i].onmouseover = function() {
+// 			$(this).addClass('rightClickMenuActive');
+// 		};
+// 		aLi[i].onmouseout = function() {
+// 			$(this).removeClass('rightClickMenuActive');
+// 		}
+// 	}
+// 	document.oncontextmenu = function(event) {
+// 		$(oMenu).fadeOut(0);
+// 		var event = event || window.event;
+// 		var style = oMenu.style;
+// 		$(oMenu).fadeIn(300);
+// 		style.top = event.clientY + "px";
+// 		style.left = event.clientX + "px";
+// 		return false
+// 	};
+// 	document.onclick = function() {
+// 		$(oMenu).fadeOut(100);
+// 	}
+// })();
 document.onkeydown = function(event) {
 	var e = event || window.event || arguments.callee.caller.arguments[0];
 	if (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 13) return true;
@@ -138,12 +138,7 @@ document.onkeydown = function(event) {
 		return false
 	}
 };
-try {
-	if (window.console && window.console.log) {
-		console.log("\n欢迎访问站长素材！\n\n");
-		console.log("\n请记住我们的网址：%c sc.chinaz.com", "color:red")
-	}
-} catch (e) {};
+
 
 
 // 搜索框

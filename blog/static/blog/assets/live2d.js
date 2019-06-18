@@ -4010,7 +4010,7 @@ default = r;
 			if (!s) return console.error("Failed to generate gl texture name."), -1;
 			0 == t.isPremultipliedAlpha() && e.pixelStorei(e.UNPACK_PREMULTIPLY_ALPHA_WEBGL, 1), e.pixelStorei(e.UNPACK_FLIP_Y_WEBGL, 1), e.activeTexture(e.TEXTURE0), e.bindTexture(e.TEXTURE_2D, s), e.texImage2D(e.TEXTURE_2D, 0, e.RGBA, e.RGBA, e.UNSIGNED_BYTE, n), e.texParameteri(e.TEXTURE_2D, e.TEXTURE_MAG_FILTER, e.LINEAR), e.texParameteri(e.TEXTURE_2D, e.TEXTURE_MIN_FILTER, e.LINEAR_MIPMAP_NEAREST), e.generateMipmap(e.TEXTURE_2D), t.setTexture(i, s), s = null, "function" == typeof r && r()
 		}, n.onerror = function() {
-			console.error("Failed to load image : " + e)
+			console.error("Failed to load image3 : " + e)
 		}
 	}, r.prototype.jsonParseFromBytes = function(t) {
 		var i, e = new Uint8Array(t, 0, 3);

@@ -1,0 +1,141 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+{% block cssLink %}
+    <style>
+        .w{
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .item img{
+            width: 80%;
+        }
+    </style>
+{% endblock %}
+{% block container%}
+    <div>img</div>
+    <div class="w" id="img_content">
+{#        <div class="item"></div>#}
+{#        <div class="item"></div>#}
+{#        <div class="item"></div>#}
+{#        <div class="item"></div>#}
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        $(function () {
+            initCols();
+            const obj = new ScrollImg();
+            obj.initImgs();
+            obj.scrollEvent();
+        });
+
+        {#初始化图片列#}
+        function initCols() {
+            for (i=0;i<{{ img_cols }};i++){
+                const img_col = document.createElement('div');
+                img_col.className = 'item';
+                col_width = 100/{{ img_cols }};
+                img_col.style = 'width: '+ col_width + '%; float: left;';
+                console.log(i);
+                $('#img_content').append(img_col);
+            }
+
+        }
+
+        {#图片监听类#}
+        function ScrollImg() {
+            this.pid = 0;
+            this.last_position = -1;
+            this.initImgs = function () {
+                const that = this;
+
+                $.ajax({
+                    url:'get_img.html',
+                    type:'GET',
+                    dataType:'JSON',
+                    success:function (arg) {
+                        const img_list = arg.data;
+
+                        $.each(img_list, function (index,v) {
+                            const col_index = (index + that.last_position + 1 ) % {{ img_cols }};
+                            const img_item = document.createElement('img');
+                            console.log(col_index);
+
+                            img_item.src = {{ MEDIA_URL }} + v.local_path;
+                            $('#img_content').children().eq(col_index).append(img_item);
+
+                            if (index+1 == img_list.length) {
+                                console.log('ok');
+                                that.last_position = col_index;
+                            }
+                        })
+                    }
+                })
+            };
+
+            this.scrollEvent = function () {
+                const that = this;
+
+                $(window).scroll(function () {
+                    const documentHeight = $(document).height();
+                    const windowHeight = $(window).innerHeight();
+                    const scrollHeight = $(window).scrollTop();
+
+                    {#console.log(windowHeight,scrollHeight,documentHeight);#}
+
+                    if (windowHeight+scrollHeight == documentHeight) {
+                        that.initImgs();
+                    }
+                })
+            }
+        }
+
+
+
+
+        {#初始化每列图片#}
+        pid = 0;
+        last_position = -1;
+        function initImgs() {
+            $.ajax({
+                url:'get_img.html',
+                type:'GET',
+                dataType:'JSON',
+                success:function (arg) {
+                    const img_list = arg.data;
+
+                    $.each(img_list, function (index,v) {
+                        const col_index = (index + last_position + 1 ) % {{ img_cols }};
+                        const img_item = document.createElement('img');
+                        console.log(col_index);
+
+                        img_item.src = {{ MEDIA_URL }} + v.local_path;
+                        $('#img_content').children().eq(col_index).append(img_item);
+
+                        if (index+1 == img_list.length) {
+                            console.log('ok');
+                            last_position = col_index;
+                        }
+                    })
+                }
+            })
+        }
+
+        {#滚动监听#}
+
+        function scrollEvent() {
+            $(window).scroll(function () {
+                const documentHeight = $(document).height();
+                const windowHeight = $(window).innerHeight();
+                const scrollHeight = $(window).scrollTop();
+
+                {#console.log(windowHeight,scrollHeight,documentHeight);#}
+
+                if (windowHeight+scrollHeight == documentHeight) {
+                    initImgs();
+                }
+            })
+        }
+    </script>
+{% endblock %}

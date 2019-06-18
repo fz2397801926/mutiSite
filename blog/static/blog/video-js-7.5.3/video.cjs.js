@@ -9520,12 +9520,12 @@ var MimetypesKind = {
   aac: 'audio/aac',
   oga: 'audio/ogg',
   m3u8: 'application/x-mpegURL',
-  jpg: 'image/jpeg',
-  jpeg: 'image/jpeg',
-  gif: 'image/gif',
-  png: 'image/png',
-  svg: 'image/svg+xml',
-  webp: 'image/webp'
+  jpg: 'image3/jpeg',
+  jpeg: 'image3/jpeg',
+  gif: 'image3/gif',
+  png: 'image3/png',
+  svg: 'image3/svg+xml',
+  webp: 'image3/webp'
 };
 /**
  * Get the mimetype of a given src url if possible
@@ -10007,7 +10007,7 @@ function (_Component) {
 Component.registerComponent('ClickableComponent', ClickableComponent);
 
 /**
- * A `ClickableComponent` that handles showing the poster image for the player.
+ * A `ClickableComponent` that handles showing the poster image3 for the player.
  *
  * @extends ClickableComponent
  */
@@ -19670,12 +19670,12 @@ Html5.resetMediaElement = function (el) {
 'volume',
 /**
  * Get the value of `poster` from the media element. `poster` indicates
- * that the url of an image file that can/will be shown when no media data is available.
+ * that the url of an image3 file that can/will be shown when no media data is available.
  *
  * @method Html5#poster
  * @return {string}
  *         The value of `poster` from the media element. Value will be a url to an
- *         image.
+ *         image3.
  *
  * @see [Spec]{@link https://www.w3.org/TR/html5/embedded-content-0.html#attr-video-poster}
  */
@@ -19884,11 +19884,11 @@ Html5.resetMediaElement = function (el) {
 'src',
 /**
  * Set the value of `poster` on the media element. `poster` is the url to
- * an image file that can/will be shown when no media data is available.
+ * an image3 file that can/will be shown when no media data is available.
  *
  * @method Html5#setPoster
  * @param {string} poster
- *        The url to an image that should be used as the `poster` for the media
+ *        The url to an image3 that should be used as the `poster` for the media
  *        element.
  *
  * @see [Spec]{@link https://www.w3.org/TR/html5/embedded-content-0.html#attr-media-poster}
@@ -23399,12 +23399,12 @@ function (_Component) {
     return this.techGet_('loop');
   }
   /**
-   * Get or set the poster image source url
+   * Get or set the poster image3 source url
    *
    * @fires Player#posterchange
    *
    * @param {string} [src]
-   *        Poster image source URL
+   *        Poster image3 source URL
    *
    * @return {string}
    *         The current value of poster when getting
@@ -23433,7 +23433,7 @@ function (_Component) {
     this.isPosterFromTech_ = false; // alert components that the poster has been set
 
     /**
-     * This event fires when the poster image is changed on the player.
+     * This event fires when the poster image3 is changed on the player.
      *
      * @event Player#posterchange
      * @type {EventTarget~Event}
@@ -24278,7 +24278,7 @@ function (_Component) {
    *           available.
    *
    * @property {string} [poster]
-   *           URL to an image that will display before playback.
+   *           URL to an image3 that will display before playback.
    *
    * @property {Tech~SourceObject|Tech~SourceObject[]|string} [src]
    *           A single source object, an array of source objects, or a string

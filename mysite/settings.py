@@ -55,6 +55,8 @@ INSTALLED_APPS = [
     'blog',
     'navigations',
     'yunfile',
+    'backend',
+    'repository',
     'ckeditor',
 ]
 

@@ -1,4 +1,5 @@
 {% load staticfiles %}
+<!DOCTYPE HTML>
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8">
@@ -16,18 +17,18 @@
     <link rel="shortcut icon" href="{% static 'blog/images/favicon.ico' %}">
     {% block cssLink %}
     {% endblock %}
-    <script src="{% static 'blog/js/jquery-2.1.4.min.js' %}"></script>
+    <script src="{% static 'jquery/jquery-2.1.4.min.js' %}"></script>
     <script src="{% static 'blog/js/nprogress.js' %}"></script>
     <script src="{% static 'blog/js/jquery.lazyload.min.js' %}"></script>
     <!--[if gte IE 9]>
-  <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
-  <script src="js/html5shiv.min.js" type="text/javascript"></script>
-  <script src="js/respond.min.js" type="text/javascript"></script>
-  <script src="js/selectivizr-min.js" type="text/javascript"></script>
-<![endif]-->
+      <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
+      <script src="js/html5shiv.min.js" type="text/javascript"></script>
+      <script src="js/respond.min.js" type="text/javascript"></script>
+      <script src="js/selectivizr-min.js" type="text/javascript"></script>
+    <![endif]-->
     <!--[if lt IE 9]>
-  <script>window.location.href='upgrade-browser.html';</script>
-<![endif]-->
+      <script>window.location.href='upgrade-browser.html';</script>
+    <![endif]-->
 </head>
 <body class="user-select">
 <header class="header">
@@ -80,17 +81,20 @@
 </header>
 {% block container %}
 {% endblock %}
-{% include 'blog/include/live2d.html' %}
+{% if live2d_open == 0 %}
+    {% include 'blog/include/live2d.html' %}
+{% endif %}
 <footer class="footer">
     <div class="container">
         <p>Copyright &copy; 2018 一只麻瓜 Powered By Django </p>
     </div>
     <div id="gotop"><a class="gotop"></a></div>
 </footer>
-<script src="{% static 'blog/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 <script src="{% static 'blog/js/jquery.ias.js' %}"></script>
 <script src="{% static 'blog/js/scripts.js' %}"></script>
 {% block script %}
 {% endblock %}
+
 </body>
 </html>

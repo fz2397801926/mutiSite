@@ -134,6 +134,8 @@ body,input,button,textarea,select {
 	background:#444;
 	color:#FFF;
 }
+
+
 @media (min-width:768px) {
 	.container {
 	width:auto;

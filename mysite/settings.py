@@ -26,7 +26,10 @@ systemType = platform.architecture()[1]
 SECRET_KEY = '^ckwk_b6+zo@)86_z0c(oncgkg#qced6p1ei4jt09idh44jaiw'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if systemType == 'WindowsPE':
+    DEBUG = True
+else:
+    DEBUG = False
 
 
 

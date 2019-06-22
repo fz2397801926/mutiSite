@@ -1,0 +1,73 @@
+{% extends 'homepage/signBase.html'%}
+{% block sign %}
+		<!-- signin end -->
+		<section class="signin signup">
+			<div class="container">
+
+				<div class="sign-content">
+					<h2>注册</h2>
+
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="signin-form">
+								<form action="{% url 'homepage:register'%}" method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+										<label for="signin_form">昵称</label>
+									    {{ registerForm.nickname }}
+									</div><!--/.form-group -->
+									<div class="form-group">
+										<label for="signin_form">邮箱</label>
+									    {{ registerForm.email }}
+									</div><!--/.form-group -->
+									<div class="form-group">
+										<label for="signin_form">密码</label>
+									    {{ registerForm.password }}
+									</div><!--/.form-group -->
+									<div class="form-group">
+										<label for="signin_form">密码确认</label>
+									    {{ registerForm.passwordConfirmed }}
+									</div><!--/.form-group -->
+                                    <div class="signin-password">
+                                        <div class="awesome-checkbox-list">
+                                            <ul class="unstyled centered">
+
+                                                <li>
+                                                    <input class="styled-checkbox" id="styled-checkbox-2" type="checkbox" value="value2">
+                                                    <label for="styled-checkbox-2">接受用户条款</label>
+                                                </li>
+
+                                                <li></li>
+
+                                            </ul>
+                                        </div><!--/.awesome-checkbox-list -->
+                                    </div><!--/.signin-password -->
+                                    <button type="submit" class="btn signin_btn" data-toggle="modal" data-target=".signin_modal">
+                                        注册
+                                    </button>
+								</form><!--/form -->
+							</div><!--/.signin-form -->
+						</div><!--/.col -->
+					</div><!--/.row -->
+
+
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="signin-footer">
+								<p>
+									已有账号？
+									<a href="{% url 'homepage:login'%}">登录</a>
+								</p>
+							</div><!--/.signin-footer -->
+						</div><!--/.col-->
+					</div><!--/.row -->
+
+				</div><!--/.sign-content -->
+
+			</div><!--/.container -->
+
+		</section><!--/.signin -->
+
+		<!-- signin end -->
+
+{% endblock %}

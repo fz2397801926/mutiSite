@@ -26,6 +26,7 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     path('navigations/', include('navigations.urls')),
     path('yunfile/', include('yunfile.urls')),
+    path('backend/',include('backend.urls')),
     path('api/', include('api.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

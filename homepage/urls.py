@@ -16,6 +16,15 @@ Including another URLconf
 from django.urls import path
 from homepage import views
 
+# 命名空间，防止url别名混用
+app_name = 'homepage'
+
 urlpatterns = [
     path('', views.index, name='index'),
+    path('login/', views.login, name='login'),
+    path('register/', views.register, name='register'),
+    path('userBackground/', views.userBackground, name='userBackground'),
+    path('confirm/', views.userConfirm, name='confirm'),
+    path('logout/', views.logout, name='logout'),
+    path('checkCode.html', views.checkCode, name='checkCode'),
 ]

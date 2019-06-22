@@ -4,17 +4,18 @@ from django.db import models
 
 # 用户
 class WebUser(models.Model):
-    gender = {
-        ('male','男'),
-        ('female','女'),
-        ('unknown','保密'),
-    }
+    gender = (
+        ('male', '男'),
+        ('female', '女'),
+        ('unknown', '保密'),
+    )
 
-    username = models.CharField(max_length=20, verbose_name='名称',unique=True)
+
+    username = models.CharField(max_length=20, verbose_name='昵称')
     headPortrait = models.ImageField(upload_to='media/blog/headPortrait/',default='media/blog/headPortrait/icon.png',verbose_name='头像')
     password = models.CharField(max_length=128, verbose_name='密码')
     email = models.EmailField(verbose_name='邮箱',unique=True)
-    # sex = models.CharField(max_length=32,choices=gender,default='unknown')
+    sex = models.CharField(max_length=10,choices=gender,default='unknown')
     create_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
     has_confirmed = models.BooleanField(default=False)
 

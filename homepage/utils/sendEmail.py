@@ -1,16 +1,11 @@
 import datetime
-from django.core.mail import EmailMultiAlternatives,send_mail
-from blog.models import *
+from django.core.mail import EmailMultiAlternatives
 from mysite import settings
-from utils.encryption import hashEncrypt
 
-def makeConfirmCode(user):
-    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    code = hashEncrypt(user.username, now)
-    ConfirmString.objects.create(code=code, user=user,)
-    return code
+
 
 def sendEmail(email,code):
+    print('start')
     subject = '注册确认'
     text_content = '欢迎注册访问一只麻瓜的博客'
     html_content = '''

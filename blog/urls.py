@@ -24,15 +24,9 @@ urlpatterns = [
     path('index/', views.index, name='index'),
     path('list/<int:currentPage>', views.list_pages, name='list'),
     path('article/<int:id>', views.context, name='article'),
-    path('resource', views.resource, name='resouce'),
+    path('resource/', views.resource, name='resouce'),
     path('error/', views.error, name='error'),
-    path('background/', views.background, name='background'),
 
-    path('register/', views.register, name='register'),
-    path('confirm/', views.userConfirm, name='confirm'),
-    path('login/', views.login, name='login'),
-    path('logout/', views.logout, name='logout'),
-    path('checkCode.html', views.checkCode, name='checkCode'),
     path('upload.html', views.upload, name='upload'),
 
 

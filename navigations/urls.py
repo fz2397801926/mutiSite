@@ -17,6 +17,9 @@ from django.contrib import admin
 from django.urls import path
 from navigations import views
 
+# 命名空间，防止url别名混用
+app_name = 'navigations'
+
 urlpatterns = [
     path('index/', views.index, name='index'),
 ]

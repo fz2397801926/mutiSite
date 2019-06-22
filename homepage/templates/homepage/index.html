@@ -18,27 +18,26 @@
         <i class="fa fa-bars btn-mobile-menu__icon"></i>
         <i class="fa fa-chevron-circle-up btn-mobile-close__icon hidden"></i>
     </span>
+
   <div class="panel-main">
     <div class="panel-main__inner panel-inverted">
-    <div class="panel-main__content">	    
-        <a href="#" title="小刀娱乐"><img src="" width="150" alt="LOGO" class="panel-cover__logo logo"></a>
-        <h1 class="panel-cover__title panel-title"><a href="#" title="小刀">一只麻瓜</a></h1>
+    <div class="panel-main__content">
+{#        <a href="#" title="一只麻瓜"><img src="{% static 'common/images/onemuggle.png'%}" width="150" alt="LOGO" class="panel-cover__logo logo"></a>#}
+        <h1 class="panel-cover__title panel-title"><a href="#" title="一只麻瓜">一只麻瓜</a></h1>
         <span class="panel-cover__subtitle panel-subtitle"><script>hitokoto()</script>
         <hr class="panel-cover__divider">
         <p class="panel-cover__description">个人主页</p>
         <hr class="panel-cover__divider"> 
         <p class="panel-cover__description">欢迎来到我的主页！</p>
-	<p class="footer">Copyright © 2019 <a href="#" target="_blank">一只麻瓜</a> All Rights Reserved.</p>
+	<p class="footer">Copyright © 2019 <a href="{% url 'homepage:index' %}" target="_blank">一只麻瓜</a> All Rights Reserved.</p>
 
         <div class="navigation-wrapper">
           <div>
             <nav class="cover-navigation cover-navigation--primary">
-{#              <ul class="navigation">#}
-{#                <li class="navigation__item"><a href="#" title="小刀娱乐">小刀娱乐</a></li>#}
-{#                <li class="navigation__item"><a href="http://qia.la/" title="恰啦高防CDN">恰啦高防CDN</a></li>#}
-{#                <li class="navigation__item"><a href="http://kxdao.net" title="科学刀论坛">科学刀论坛</a></li>#}
-{#                <li class="navigation__item"><a href="http://www.qsjsc.com" title="淘宝优惠券">淘宝优惠券</a></li>#}
-{#              </ul>#}
+              <ul class="navigation">
+                <li class="navigation__item"><a href="{% url 'blog:index' %}" title="博客">博客</a></li>
+                <li class="navigation__item"><a href="{% url 'navigations:index' %}" title="导航">导航</a></li>
+              </ul>
             </nav>
           </div>
           
@@ -93,7 +92,6 @@
     </div>
     <div class="panel-cover--overlay cover-slate"></div>
   </div>
-</header>
 
 <script type="text/javascript" src="{% static 'homepage/js/jquery-1.11.3.min.js'%}"></script>
 <script type="text/javascript" src="{% static 'homepage/js/main.js'%}"></script>
